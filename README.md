@@ -1,112 +1,89 @@
 Healthcare Dashboard
-A simple healthcare dashboard built using React.js for the frontend and Flask for the backend. The application allows users to submit their name, age, and a file through a form, which is then processed and stored on the server.
+A modern healthcare dashboard built using React.js and styled with Material-UI. This project includes a form to collect user data (name, age, and file) with a stylish interface, file upload functionality, and toast notifications for user feedback.
 
-Project Features
-Frontend: A React.js application to collect user data.
-Backend: A Python Flask server to handle form submissions and file uploads.
-Cross-Origin communication is enabled using CORS.
+Features
+Responsive Design: A modern UI built with Material-UI.
+Form Validation: Ensures all fields are filled before submission.
+File Upload Preview: Displays the uploaded file name with an icon.
+Toast Notifications: Provides user feedback for successful or failed actions.
+Form Reset: Clears all inputs after successful submission.
 Technologies Used
-Frontend: React.js, Axios, Bootstrap
-Backend: Python, Flask, Flask-CORS
+Frontend: React.js, Material-UI
+Notifications: React-Toastify
 Getting Started
 Prerequisites
-Node.js (for React frontend)
-Python (for Flask backend)
+Ensure you have the following installed:
+
+Node.js (v14 or later)
+npm or yarn
 Setup Instructions
 1. Clone the Repository
 bash
 Copy code
 git clone https://github.com/your-username/healthcare-dashboard.git
 cd healthcare-dashboard
-Backend Setup (Python)
-Navigate to the backend folder:
-
-bash
-Copy code
-cd backend
-Create a virtual environment and activate it:
-
-bash
-Copy code
-python -m venv env
-source env/bin/activate  # Linux/Mac
-env\Scripts\activate     # Windows
-Install dependencies:
-
-bash
-Copy code
-pip install flask flask-cors
-Run the Flask server:
-
-bash
-Copy code
-python main.py
-The server will start on http://127.0.0.1:5000.
-
-Frontend Setup (React.js)
-Navigate to the frontend folder:
-
-bash
-Copy code
-cd frontend
-Install dependencies:
-
+2. Install Dependencies
 bash
 Copy code
 npm install
-Start the React development server:
-
+3. Start the Development Server
 bash
 Copy code
 npm start
-The frontend will run on http://localhost:3000.
+The application will run on http://localhost:3000.
 
-Running the Application
-Start the Flask backend on http://127.0.0.1:5000.
-Start the React frontend on http://localhost:3000.
-Open the React app in your browser.
-Fill out the form and submit data. The backend will process the data and save the uploaded file.
 Project Structure
-Frontend (React)
-php
+csharp
 Copy code
-frontend/
+healthcare-dashboard/
+├── public/
+│   └── index.html         # HTML template
 ├── src/
 │   ├── components/
-│   │   └── FormComponent.js   # Form for submitting data
+│   │   └── FormComponent.js   # Main form component
+        └── FormComponent.css  # Custom CSS for form styling
 │   ├── App.js                 # Main app file
-│   └── index.js               # React entry point
-├── public/
+│   ├── index.js               # React entry point
 ├── package.json
-Backend (Python Flask)
+├── README.md
+Usage
+Open the app at http://localhost:3000.
+Fill in the form:
+Enter your name.
+Select your age from the dropdown.
+Upload a file using the upload button.
+Click Submit to see a toast notification for success.
+The form will reset automatically after submission.
+Customizations
+1. API Integration
+Replace the placeholder toast in the handleSubmit method with an actual API call using Axios:
+
+javascript
+Copy code
+await axios.post("http://your-backend-api/submit", formData, {
+  headers: { "Content-Type": "multipart/form-data" },
+});
+2. Styling
+Modify the CSS in FormComponent.css or replace Material-UI components with custom components if needed.
+
+Screenshots
+Form Layout
+The modern form includes a name field, an age dropdown, a file upload button, and a submit button.
+File Preview
+A small clip icon and file name are displayed after a file is selected.
+Toast Notifications
+Visual feedback for success and error events using React-Toastify.
+Dependencies
+The following libraries are used in this project:
+
+React: Frontend framework.
+Material-UI: Modern components for styling.
+React-Toastify: Toast notifications.
+Axios: For making API calls (not used yet in this implementation).
+To install dependencies:
+
 bash
 Copy code
-backend/
-├── main.py                    # Flask server
-├── uploads/                   # Folder to store uploaded files
-├── requirements.txt           # Python dependencies
-API Reference
-Endpoint: POST /submit
-Submit form data to the Flask backend.
+npm install @mui/material @emotion/react @emotion/styled react-toastify axios
 
-URL: http://127.0.0.1:5000/submit
 
-Method: POST
-
-Request Format: multipart/form-data
-
-Request Fields:
-
-name: User's name (string)
-age: User's age (integer)
-file: File to upload (file)
-Response:
-
-json
-Copy code
-{
-    "message": "Form submitted successfully",
-    "name": "John Doe",
-    "age": "30",
-    "file_path": "uploads/filename.ext"
-}
