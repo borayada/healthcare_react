@@ -1,0 +1,73 @@
+/* Background Effects */
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(120deg, #84fab0, #8fd3f4);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.form-box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-input {
+  margin-top: 10px;
+}
+
+.form-submit {
+  background-color: #84fab0;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.form-submit:hover {
+  background-color: #62e49f;
+}
+.file-upload-container {
+  position: relative;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 5px;
+  color: #555;
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
