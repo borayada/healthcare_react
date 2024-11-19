@@ -1,81 +1,106 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Box, TextField, Button, MenuItem, Typography } from "@mui/material";
+import AttachFileIcon from "@mui/icons-material/AttachFile"; // For the file icon
+import "./FormComponent.css"; // Custom CSS for background effects
 
 const FormComponent = () => {
-  const [formData, setFormData] = useState({ name: "", age: "", file: null });
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [file, setFile] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name || !age || !file) {
+      toast.error("Please fill out all fields!");
+      return;
+    }
+
+    // Show success notification
+    toast.success("Form submitted successfully!");
+
+    // Reset the form fields
+    setName("");
+    setAge("");
+    setFile(null);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("age", formData.age);
-    data.append("file", formData.file);
-
-    try {
-      //   const response = await axios.post(
-      //     "http://192.168.241.2:8080/submit",
-      //     data,
-      //     {
-      //       headers: { "Content-Type": "multipart/form-data" },
-      //     }
-      //   );
-      toast.success("Form submitted successfully!");
-    } catch (error) {
-      toast.error("Error submitting the form.");
-    }
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   return (
-    <div className="container">
-      <h2>Healthcare Dashboard</h2>
-      <form onSubmit={handleSubmit} className="p-4 border rounded">
-        <div className="mb-3">
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="form-control"
-            required
+    <Box className="form-container">
+      <Box className="form-box">
+        <Typography variant="h4" className="form-title">
+          Healthcare Dashboard
+        </Typography>
+        <form onSubmit={handleSubmit} className="form-content">
+          {/* Name Field */}
+          <TextField
+            label="Name"
+            variant="outlined"
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="form-input"
           />
-        </div>
-        <div className="mb-3">
-          <label>Age</label>
-          <input
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            className="form-control"
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label>File Upload</label>
-          <input
-            type="file"
-            name="file"
-            onChange={handleChange}
-            className="form-control"
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-    </div>
+
+          {/* Age Dropdown */}
+          <TextField
+            select
+            label="Age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            variant="outlined"
+            fullWidth
+            className="form-input"
+          >
+            {Array.from({ length: 100 }, (_, i) => i + 1).map((value) => (
+              <MenuItem key={value} value={value}>
+                {value}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          {/* File Upload */}
+          <Box className="file-upload-container">
+            <Button
+              variant="outlined"
+              component="label"
+              className="form-input"
+              fullWidth
+            >
+              Upload File
+              <input type="file" hidden onChange={handleFileChange} />
+            </Button>
+            {file && (
+              <Box className="file-info">
+                <AttachFileIcon fontSize="small" />
+                <Typography variant="body2" className="file-name">
+                  {file.name}
+                </Typography>
+              </Box>
+            )}
+          </Box>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            className="form-submit"
+          >
+            Submit
+          </Button>
+        </form>
+      </Box>
+      {/* Toast Container */}
+      <ToastContainer />
+    </Box>
   );
 };
 
